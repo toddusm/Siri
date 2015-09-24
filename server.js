@@ -5,10 +5,9 @@ var messages = ["Hello there.", "I'm sorry, I cannot take any requests at this t
 server.listen(8887);
 
 server.on('request', function(request, response){
-   if(request.method === 'GET') {function getMessage() {
+   if(request.method === 'GET') { function getMessage() {
    return {message: messages[Math.floor(Math.random() * messages.length)]};
   };
-   }
   response.writeHead(200, {
   'Connection': 'close',
   'Content-Type': 'application/json',
@@ -17,7 +16,17 @@ server.on('request', function(request, response){
   'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
 });
 
-  response.end(JSON.stringify(getMessage()));
+  response.end(JSON.stringify(getMessage())); }
+ else if(request.method === 'OPTIONS'){
+	  response.writeHead(200, {
+  'Connection': 'close',
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'OPTIONS, GET, POST',
+  'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept'
+  })
+  response.end();
+  }
 })
 
 // function getRandomInt(min, max){
